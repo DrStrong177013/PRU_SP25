@@ -5,7 +5,7 @@ public class Player : Entity
 {
     [Header("Attack details")]
     public Vector2[] attackMovement;
-    
+    public ParticleSystem dust;
     public bool isBusy { get; private set; }
 
     [Header("Move info")]

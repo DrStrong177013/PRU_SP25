@@ -6,6 +6,8 @@ public class Entity : MonoBehaviour
     public Animator anim
     { get; private set; }
     public Rigidbody2D rb { get; private set; }
+
+    
     #endregion
 
     [Header("Colision info")]
@@ -63,6 +65,7 @@ public class Entity : MonoBehaviour
     #region Flip
     public virtual void Flip()
     {
+        
         facingDir = facingDir * -1;
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);

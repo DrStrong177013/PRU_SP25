@@ -24,6 +24,10 @@ public class PlayerIdleState : PlayerGroundedState
             return;
 
         if (xInput != 0 && !player.isBusy)
+        {
+            player.dust.Play();
             stateMachine.ChangeState(player.moveState);
+        }
+
     }
 }
