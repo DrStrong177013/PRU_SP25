@@ -1,12 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
     #region Components
-    public Animator anim
-    { get; private set; }
+    public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
+    public EntityFX fx { get; private set; }
+    public CharacterStats stats { get; private set; }
     #endregion
+    [Header("Knockback info")]
+    [SerializeField] protected Vector2 knockbackDirection;
+    [SerializeField] protected float knockbackDuration;
+    protected bool isKnocked;
 
     [Header("Colision info")]
     public Transform attackCheck;
@@ -26,26 +32,45 @@ public class Entity : MonoBehaviour
     }
     protected virtual void Start()
     {
+        fx = GetComponentInChildren<EntityFX>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        stats = GetComponent<CharacterStats>();
     }
 
     protected virtual void Update()
     {
 
     }
+    public virtual void DamageEffect()
+    {
+        fx.StartCoroutine("FlashFX");
+        StartCoroutine("HitKnockback");
+        Debug.Log(gameObject.name + "was Damaged !");
+    }
 
     #region Velocity
-    public void ZeroVelocity() => rb.linearVelocity = new Vector2(0, 0);
+    public void ZeroVelocity()
+    {
+        if (isKnocked)
+        {
+            Debug.Log("knock");
+            return;
+        }
+        rb.linearVelocity = new Vector2(0, 0);
+    }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
         rb.linearVelocity = new Vector2(_xVelocity, _yVelocity);
         FlipController(_xVelocity);
     }
-    public virtual void Damage()
+    protected virtual IEnumerator HitKnockback()
     {
-        Debug.Log(gameObject.name + "was Damaged !");
+        isKnocked = true;
+        rb.linearVelocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
+        yield return new WaitForSeconds(knockbackDuration);
+        isKnocked = false;
     }
     #endregion
 
