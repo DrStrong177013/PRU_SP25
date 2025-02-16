@@ -23,7 +23,7 @@ public class BanditAttackState : EnemyState
     {
         base.Update();
 
-        enemy.ZeroVelocity();
+        enemy.SetZeroVelocity();
 
         if (triggerCalled)
             stateMachine.ChangeState(enemy.battleState);

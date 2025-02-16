@@ -20,9 +20,9 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
-        
+
         if (xInput != 0 && player.IsGroundDetected())
-            player.ZeroVelocity();
+            player.SetZeroVelocity();
 
         if (Input.GetKeyDown(KeyCode.Q))
 

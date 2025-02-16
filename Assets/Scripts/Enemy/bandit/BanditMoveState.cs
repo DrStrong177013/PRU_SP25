@@ -21,7 +21,7 @@ public class BanditMoveState : BanditGroundedState
         base.Update();
 
 
-        
+
 
         enemy.SetVelocity(enemy.moveSpeed * enemy.facingDir, rb.linearVelocity.y);
 

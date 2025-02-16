@@ -10,6 +10,7 @@ public class Enemy_Bandit : Enemy
     public BanditBattleState battleState { get; private set; }
     public BanditAttackState attackState { get; private set; }
     public BanditStunnedState stunnedState { get; private set; }
+    public BanditDeadState deadState { get; private set; }
     #endregion
     protected override void Awake()
     {
@@ -20,6 +21,7 @@ public class Enemy_Bandit : Enemy
         battleState = new BanditBattleState(this, stateMachine, "Move", this);
         attackState = new BanditAttackState(this, stateMachine, "Attack", this);
         stunnedState = new BanditStunnedState(this, stateMachine, "Stunned", this);
+        deadState = new BanditDeadState(this, stateMachine, "Idle", this);
     }
 
     protected override void Start()
@@ -43,5 +45,10 @@ public class Enemy_Bandit : Enemy
             return true;
         }
         return false;
+    }
+    public override void Die()
+    {
+        base.Die();
+        stateMachine.ChangeState(deadState);
     }
 }

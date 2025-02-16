@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Xml;
 using UnityEngine;
 
 public class Player : Entity
@@ -39,6 +40,8 @@ public class Player : Entity
 
     public PlayerPrimaryAttackState primaryAttack { get; private set; }
     public PlayerCounterAttackState counterAttack { get; private set; }
+
+    public PlayerDeathState deadState { get; private set; }
     #endregion
 
     protected override void Awake()
@@ -55,6 +58,7 @@ public class Player : Entity
 
         primaryAttack = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
         counterAttack = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
+        deadState = new PlayerDeathState(this, stateMachine, "Die");
     }
     protected override void Start()
     {
@@ -106,7 +110,12 @@ public class Player : Entity
         }
     }
 
+    public override void Die()
+    {
+        base.Die();
 
+        stateMachine.ChangeState(deadState);
+    }
 
 
 

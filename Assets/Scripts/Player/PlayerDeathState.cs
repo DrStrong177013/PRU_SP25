@@ -6,6 +6,11 @@ public class PlayerDeathState : PlayerState
     {
     }
 
+    public override void AnimatòòionFinishTrigger()
+    {
+        base.AnimatòòionFinishTrigger();
+    }
+
     public override void Enter()
     {
         base.Enter();
@@ -19,5 +24,6 @@ public class PlayerDeathState : PlayerState
     public override void Update()
     {
         base.Update();
+        player.SetZeroVelocity();
     }
 }

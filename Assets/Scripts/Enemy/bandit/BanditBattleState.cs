@@ -36,7 +36,7 @@ public class BanditBattleState : EnemyState
                 }
                 else
                 {
-                    enemy.ZeroVelocity();
+                    enemy.SetZeroVelocity();
                     enemy.anim.SetBool("Move", false);
                     enemy.anim.SetBool("Idle", true);
 
