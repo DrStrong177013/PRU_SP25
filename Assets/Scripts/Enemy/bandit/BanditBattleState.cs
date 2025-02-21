@@ -16,8 +16,6 @@ public class BanditBattleState : EnemyState
         player = GameObject.Find("Player").transform;
     }
 
-
-
     public override void Update()
     {
         base.Update();
@@ -70,7 +68,7 @@ public class BanditBattleState : EnemyState
             enemy.lastTimeAttacked = Time.time;
             return true;
         }
-        Debug.Log("Attack is on Cooldown");
+        /*Debug.Log("Attack is on Cooldown");*/
         return false;
     }
 }

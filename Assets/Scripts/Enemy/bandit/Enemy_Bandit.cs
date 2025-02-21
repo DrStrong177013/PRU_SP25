@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Enemy_Bandit : Enemy
 {
+    [Header("Attack details")]
+    public float pureDamage = 10f;
 
     #region States
 
