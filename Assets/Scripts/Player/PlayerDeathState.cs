@@ -6,9 +6,9 @@ public class PlayerDeathState : PlayerState
     {
     }
 
-    public override void AnimatòòionFinishTrigger()
+    public override void AnimationFinishTrigger()
     {
-        base.AnimatòòionFinishTrigger();
+        base.AnimationFinishTrigger();
     }
 
     public override void Enter()

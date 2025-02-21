@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Xml;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Entity
 {
@@ -22,9 +23,10 @@ public class Player : Entity
     public float dashDuration;
     public float dashDir { get; private set; }
 
-
-
-
+    [Header("Stats info")]
+    public float health;
+    public float maxHealth = 150f;
+    public Image healthBar;
 
     #region States
     public PlayerStateMachine stateMachine
@@ -64,33 +66,25 @@ public class Player : Entity
     {
         base.Start();
         stateMachine.Initialize(idleState);
-
-
+        health = maxHealth;
     }
 
 
     protected override void Update()
     {
         base.Update();
-
         CheckForDashInput();
         stateMachine.currentState.Update();
-
-
-
     }
 
     public IEnumerator BusyFor(float _secounds)
     {
         isBusy = true;
-        //Debug.Log("is BUSY");
         yield return new WaitForSeconds(_secounds);
-        //Debug.Log("NOT busy");
         isBusy = false;
-
     }
 
-    public void AnimationTrigger() => stateMachine.currentState.AnimatòòionFinishTrigger();
+    public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     private void CheckForDashInput()
     {
         if (IsWallDetected())
@@ -113,10 +107,6 @@ public class Player : Entity
     public override void Die()
     {
         base.Die();
-
         stateMachine.ChangeState(deadState);
     }
-
-
-
 }
