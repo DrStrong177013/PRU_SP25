@@ -12,6 +12,8 @@ public class Player : Entity
     public bool isBusy { get; private set; }
 
     [Header("Move info")]
+    [SerializeField] private float waterSlowFactor = 0.5f;
+    private float defaultMoveSpeed;
     public float moveSpeed = 4f;
     public float jumpForce;
     public ParticleSystem dust;
@@ -24,6 +26,8 @@ public class Player : Entity
     public float dashDir { get; private set; }
 
     [Header("Stats info")]
+    private float defaultMass;
+    private Vector2 defaultLinearRigidBody;
     public float health;
     public float maxHealth = 150f;
     public Image healthBar;
@@ -67,6 +71,7 @@ public class Player : Entity
         base.Start();
         stateMachine.Initialize(idleState);
         health = maxHealth;
+        defaultMoveSpeed = moveSpeed;
     }
 
 
@@ -74,6 +79,7 @@ public class Player : Entity
     {
         base.Update();
         CheckForDashInput();
+        HandleWaterInteraction();
         stateMachine.currentState.Update();
     }
 
@@ -102,6 +108,23 @@ public class Player : Entity
             }
             stateMachine.ChangeState(dashState);
         }
+    }
+
+    private void HandleWaterInteraction()
+    {
+        if (IsInWater())
+        {
+            moveSpeed = defaultMoveSpeed * waterSlowFactor;
+        }
+        else
+        {
+            moveSpeed = defaultMoveSpeed;
+        }
+    }
+
+    private bool IsInWater()
+    {
+        return Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, LayerMask.GetMask("Water")) != null;
     }
 
     public override void Die()

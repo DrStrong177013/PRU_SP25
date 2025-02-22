@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 2045205283343181198}
   - component: {fileID: 7845869513267545681}
   - component: {fileID: 4662827004277730745}
+  - component: {fileID: 7488221669192393823}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -207,6 +208,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  whatIsClimbing:
+    serializedVersion: 2
+    m_Bits: 0
   attackMovement:
   - {x: 3, y: 1.5}
   - {x: 1, y: 2.5}
@@ -218,6 +222,9 @@ MonoBehaviour:
   dashCoolDown: 1.4
   dashSpeed: 18
   dashDuration: 0.2
+  health: 0
+  maxHealth: 150
+  healthBar: {fileID: 0}
 --- !u!70 &3849418739122642949
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -359,6 +366,18 @@ MonoBehaviour:
   ailmentsDuration: 4
   shockStrikePrefab: {fileID: 0}
   currentHealth: 0
+--- !u!114 &7488221669192393823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2173316905002496640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16bfb27f3683ddd4088f2035661f1dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5527041209209249771
 GameObject:
   m_ObjectHideFlags: 0
