@@ -25,13 +25,6 @@ public class Player : Entity
     public float dashDuration;
     public float dashDir { get; private set; }
 
-    [Header("Stats info")]
-    private float defaultMass;
-    private Vector2 defaultLinearRigidBody;
-    public float health;
-    public float maxHealth = 150f;
-    public Image healthBar;
-
     #region States
     public PlayerStateMachine stateMachine
     { get; private set; }
@@ -70,7 +63,6 @@ public class Player : Entity
     {
         base.Start();
         stateMachine.Initialize(idleState);
-        health = maxHealth;
         defaultMoveSpeed = moveSpeed;
     }
 

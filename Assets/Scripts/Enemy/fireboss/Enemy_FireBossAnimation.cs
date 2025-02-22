@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Enemy_ireBossAnimation : MonoBehaviour
+public class Enemy_FireBossAnimation : MonoBehaviour
 {
     private Enemy_FireBoss enemy => GetComponentInParent<Enemy_FireBoss>();
 

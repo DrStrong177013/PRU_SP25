@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Enemy_FireBoss : Enemy
@@ -13,6 +14,7 @@ public class Enemy_FireBoss : Enemy
     public FireBossAttackState attackState { get; private set; }
     public FireBossStunnedState stunnedState { get; private set; }
     public FireBossDeadState deadState { get; private set; }
+
     #endregion
     protected override void Awake()
     {
@@ -47,9 +49,15 @@ public class Enemy_FireBoss : Enemy
         }
         return false;
     }
+    
     public override void Die()
     {
         base.Die();
         stateMachine.ChangeState(deadState);
+    }
+
+    public override void TriggerHitAnimation()
+    {
+        anim.SetTrigger("TakeHit");
     }
 }

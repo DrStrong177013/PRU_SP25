@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,21 +33,31 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        if (player.health <= 0)
+        if (player != null)
         {
-            ShowCanvas();
+            int playerCurrentHealth = player.GetComponent<PlayerStats>().currentHealth;
+
+            // TODO Slow load for player die animation
+            if (playerCurrentHealth <= 0)
+            {
+                ShowCanvas();
+            }
         }
     }
 
     public void RestartGame()
     {
-        Time.timeScale = 1;
-        player.health = player.maxHealth;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (player != null)
+        {
+            Time.timeScale = 1;
+            player.GetComponent<PlayerStats>().currentHealth = player.GetComponent<PlayerStats>().GetMaxHealthValue();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void ShowCanvas()
     {
+
         Time.timeScale = 0;
         isPaused = true;
         if (myCanvas != null)
