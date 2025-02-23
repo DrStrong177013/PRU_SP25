@@ -11,16 +11,11 @@ public class FireBossDeadState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.anim.SetBool(enemy.lastAnimBoolName, true);
-        enemy.anim.speed = 0;
-        enemy.cd.enabled = false;
-        stateTimer = .2f;
+        enemy.anim.SetBool("Die", true);
     }
 
     public override void Update()
     {
         base.Update();
-        if (stateTimer > 0)
-            rb.linearVelocity = new Vector2(0, 10);
     }
 }

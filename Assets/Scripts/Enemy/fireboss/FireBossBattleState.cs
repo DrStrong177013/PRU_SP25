@@ -21,7 +21,6 @@ public class FireBossBattleState : EnemyState
         base.Update();
         if (enemy.IsPlayerDetected())
         {
-            Debug.Log("DETECTTTTTT");
             stateTimer = enemy.battleTime;
             enemy.anim.SetBool("Idle", false);
             enemy.anim.SetBool("Walk", true);
@@ -41,8 +40,6 @@ public class FireBossBattleState : EnemyState
 
                     return;
                 }
-
-
             }
         }
         else
