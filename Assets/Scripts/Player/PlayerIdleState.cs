@@ -9,7 +9,7 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        player.ZeroVelocity();
+        player.SetZeroVelocity();
     }
 
     public override void Exit()
@@ -24,6 +24,10 @@ public class PlayerIdleState : PlayerGroundedState
             return;
 
         if (xInput != 0 && !player.isBusy)
+        {
             stateMachine.ChangeState(player.moveState);
+            player.dust.Play();
+
+        }
     }
 }

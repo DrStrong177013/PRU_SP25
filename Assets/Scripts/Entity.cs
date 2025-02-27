@@ -1,14 +1,24 @@
 using UnityEngine;
+using System.Collections;
 
 public class Entity : MonoBehaviour
 {
+
     #region Components
-    public Animator anim
-    { get; private set; }
+    public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
+    public EntityFX fx { get; private set; }
+    public SpriteRenderer sr { get; private set; }
+    public CharacterStats stats { get; private set; }
+    public CapsuleCollider2D cd { get; private set; }
     #endregion
 
-    [Header("Colision info")]
+    [Header("Knockback info")]
+    [SerializeField] protected Vector2 knockbackDirection;
+    [SerializeField] protected float knockbackDuration;
+    protected bool isKnocked;
+
+    [Header("Collision info")]
     public Transform attackCheck;
     public float attackCheckRadius;
     [SerializeField] protected Transform groundCheck;
@@ -20,14 +30,21 @@ public class Entity : MonoBehaviour
     public int facingDir { get; private set; } = 1;
     protected bool facingRight = true;
 
+    public System.Action onFlipped;
+
     protected virtual void Awake()
     {
 
     }
+
     protected virtual void Start()
     {
+        sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        fx = GetComponent<EntityFX>();
+        stats = GetComponent<CharacterStats>();
+        cd = GetComponent<CapsuleCollider2D>();
     }
 
     protected virtual void Update()
@@ -35,23 +52,50 @@ public class Entity : MonoBehaviour
 
     }
 
+    public virtual void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    {
+
+    }
+
+    protected virtual void ReturnDefaultSpeed()
+    {
+        anim.speed = 1;
+    }
+
+    public virtual void DamageImpact() => StartCoroutine("HitKnockback");
+
+    protected virtual IEnumerator HitKnockback()
+    {
+        isKnocked = true;
+
+        rb.linearVelocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
+
+        yield return new WaitForSeconds(knockbackDuration);
+        isKnocked = false;
+    }
+
     #region Velocity
-    public void ZeroVelocity() => rb.linearVelocity = new Vector2(0, 0);
+    public void SetZeroVelocity()
+    {
+        if (isKnocked)
+            return;
+
+        rb.linearVelocity = new Vector2(0, 0);
+    }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
+        if (isKnocked)
+            return;
+
         rb.linearVelocity = new Vector2(_xVelocity, _yVelocity);
         FlipController(_xVelocity);
     }
-    public virtual void Damage()
-    {
-        Debug.Log(gameObject.name + "was Damaged !");
-    }
     #endregion
-
-    #region collision
+    #region Collision
     public virtual bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
+
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
@@ -59,13 +103,15 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion
-
     #region Flip
     public virtual void Flip()
     {
         facingDir = facingDir * -1;
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
+
+        if (onFlipped != null)
+            onFlipped();
     }
 
     public virtual void FlipController(float _x)
@@ -76,5 +122,11 @@ public class Entity : MonoBehaviour
             Flip();
     }
     #endregion
-}
 
+
+
+    public virtual void Die()
+    {
+
+    }
+}

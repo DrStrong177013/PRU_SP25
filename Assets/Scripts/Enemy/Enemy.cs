@@ -3,6 +3,14 @@ using UnityEngine;
 public class Enemy : Entity
 {
     [SerializeField] protected LayerMask whatIsPlayer;
+
+    [Header("Stunned info")]
+    public float stunDuration;
+    public Vector2 stunDirection;
+    protected bool canBeStunned;
+    [SerializeField]
+    protected GameObject counterImage;
+
     [Header("Move Info")]
     public float moveSpeed;
     public float idleTime;
@@ -14,7 +22,7 @@ public class Enemy : Entity
     [HideInInspector] public float lastTimeAttacked;
 
     public EnemyStateMachine stateMachine { get; private set; }
-
+    public string lastAnimBoolName { get; private set; }
     protected override void Awake()
     {
         base.Awake();
@@ -25,7 +33,34 @@ public class Enemy : Entity
     {
         base.Update();
         stateMachine.currentState.Update();
-        Debug.Log(IsPlayerDetected().collider.gameObject.name + " I see");
+    }
+
+    public virtual void AssignLastAnimBoolName(string _animBoolName)
+    {
+        lastAnimBoolName = _animBoolName;
+    }
+
+    public virtual void OpenCounterAttackWindow()
+    {
+        canBeStunned = true;
+        counterImage.SetActive(true);
+
+    }
+
+    public virtual void CloseCounterAttackWindow()
+    {
+        canBeStunned = false;
+        counterImage.SetActive(false);
+    }
+
+    public virtual bool CanbeStunned()
+    {
+        if (canBeStunned)
+        {
+            CloseCounterAttackWindow();
+            return true;
+        }
+        return false;
     }
 
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
@@ -37,5 +72,10 @@ public class Enemy : Entity
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir, transform.position.y));
+    }
+
+    public virtual void TriggerHitAnimation()
+    {
+
     }
 }

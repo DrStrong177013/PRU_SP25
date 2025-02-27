@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Climbing
   layers:
   - Default
   - TransparentFX
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4192583529
+    locked: 0
+  - name: Water
+    uniqueID: 862648027
     locked: 0
   m_RenderingLayers:
   - Default

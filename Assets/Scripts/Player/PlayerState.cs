@@ -32,13 +32,15 @@ public class PlayerState
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxisRaw("Vertical");
         player.anim.SetFloat("yVelocity", rb.linearVelocity.y);
+        
+
     }
 
     public virtual void Exit()
     {
         player.anim.SetBool(animBoolName, false);
     }
-    public virtual void AnimatòòionFinishTrigger()
+    public virtual void AnimationFinishTrigger()
     {
         triggerCalled = true;
     }
