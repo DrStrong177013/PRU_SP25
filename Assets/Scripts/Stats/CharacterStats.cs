@@ -95,8 +95,8 @@ public class CharacterStats : MonoBehaviour
 
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
-        //_targetStats.TakeDamage(totalDamage);
-        DoMagicalDamage(_targetStats);
+        _targetStats.TakeDamage(totalDamage);
+        /*DoMagicalDamage(_targetStats);*/
 
         //if invnteroy current weapon has fire effect
         // then DoMagicalDamage(_targetStats);
@@ -260,7 +260,6 @@ public class CharacterStats : MonoBehaviour
     {
         if (igniteDamageTimer < 0)
         {
-            Debug.Log("Take burn damage" + igniteDamage);
             DecreaseHealthBy(igniteDamage);
 
 
