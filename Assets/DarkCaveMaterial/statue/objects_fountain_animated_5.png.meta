@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 68463cdab1a13cd4a92207726936250f
-AssetOrigin:
-  serializedVersion: 1
-  productId: 61672
-  packageName: 2D Platfrom Tile Set - Cave
-  packageVersion: 1.2
-  assetPath: Assets/Cave Platformer Tileset/Individual PNG files/Tileset/objects_fountain_animated/objects_fountain_animated_3.png
-  uploadId: 154679
+guid: 882845d114a8e8e4d91b83decdda3488
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

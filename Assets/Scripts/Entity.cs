@@ -21,11 +21,11 @@ public class Entity : MonoBehaviour
     [Header("Collision info")]
     public Transform attackCheck;
     public float attackCheckRadius;
-    [SerializeField] protected Transform groundCheck;
-    [SerializeField] protected float groundCheckDistance;
-    [SerializeField] protected Transform wallCheck;
-    [SerializeField] protected float wallCheckDistance;
-    [SerializeField] protected LayerMask whatIsGround;
+    [SerializeField] public Transform groundCheck;
+    [SerializeField] public float groundCheckDistance;
+    [SerializeField] public Transform wallCheck;
+    [SerializeField] public float wallCheckDistance;
+    [SerializeField] public LayerMask whatIsGround;
 
     public int facingDir { get; private set; } = 1;
     protected bool facingRight = true;
