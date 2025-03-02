@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,12 +5,14 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Player player;
-    public TextMeshPro text;
+    public TextMeshProUGUI text;
     public Canvas menu;
+    public GameObject submenu;
     public string message;
     public bool victory = false;
     private bool isPaused = false;
     private float outOfMapThreshold = -16f;
+    public Vector2 checkpointPosition;
     public Enemy_FireBoss finalBoss;
 
     void Start()
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
     {
         InteractMenu();
         BossDie();
-        EndGame();
+        PlayerDie();
         CheckPlayerOutOfMap();
     }
 
@@ -53,14 +54,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    public void PlayerDie()
     {
         if (player != null)
         {
-            int playerCurrentHealth = player.GetComponent<PlayerStats>().currentHealth;
-            if (playerCurrentHealth <= 0)
+            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            if (playerStats.currentHealth <= 0)
             {
-                ShowCanvas();
+                if (checkpointPosition != Vector2.zero)
+                {
+                    player.transform.position = checkpointPosition;
+                    playerStats.currentHealth = playerStats.GetMaxHealthValue();
+                    player.stateMachine.ChangeState(player.idleState);
+                }
+                else
+                {
+                    message = "Too much damgage? \n Maybe better luck next time";
+                    ShowCanvas();
+                }
             }
         }
     }
@@ -83,16 +94,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void RoundsMenu()
+    {
+        submenu.gameObject.SetActive(true);
+    }
+
     public void ShowCanvas()
     {
         Time.timeScale = 0;
         isPaused = true;
         if (menu != null)
         {
-            TextMeshProUGUI textMesh = menu.GetComponentInChildren<TextMeshProUGUI>();
-            if (textMesh != null)
+            if (text != null)
             {
-                textMesh.text = message;
+                text.text = message;
             }
             menu.gameObject.SetActive(true);
         }
@@ -104,5 +119,10 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         if (menu != null)
             menu.gameObject.SetActive(false);
+    }
+
+    internal void SetCheckpoint(Vector2 checkpointPosition)
+    {
+        this.checkpointPosition = checkpointPosition;
     }
 }
