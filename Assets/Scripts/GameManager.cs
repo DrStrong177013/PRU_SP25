@@ -1,23 +1,45 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public Player player;
-    public Canvas myCanvas;
+    public TextMeshPro text;
+    public Canvas menu;
+    public string message;
+    public bool victory = false;
     private bool isPaused = false;
+    private float outOfMapThreshold = -16f;
+    public Enemy_FireBoss finalBoss;
 
     void Start()
     {
-        if (myCanvas != null)
-            myCanvas.gameObject.SetActive(false);
+        if (menu != null)
+            menu.gameObject.SetActive(false);
     }
 
     void Update()
     {
         InteractMenu();
+        BossDie();
         EndGame();
+        CheckPlayerOutOfMap();
+    }
+
+    public void BossDie()
+    {
+        if (finalBoss.GetComponent<EnemyStats>().currentHealth <= 0)
+        {
+            victory = true;
+        }
+    }
+
+    public void WinGame(string message)
+    {
+        this.message = message;
+        ShowCanvas();
     }
 
     public void InteractMenu()
@@ -36,12 +58,18 @@ public class GameManager : MonoBehaviour
         if (player != null)
         {
             int playerCurrentHealth = player.GetComponent<PlayerStats>().currentHealth;
-
-            // TODO Slow load for player die animation
             if (playerCurrentHealth <= 0)
             {
                 ShowCanvas();
             }
+        }
+    }
+
+    private void CheckPlayerOutOfMap()
+    {
+        if (player != null && player.transform.position.y < outOfMapThreshold)
+        {
+            ShowCanvas();
         }
     }
 
@@ -57,18 +85,24 @@ public class GameManager : MonoBehaviour
 
     public void ShowCanvas()
     {
-
         Time.timeScale = 0;
         isPaused = true;
-        if (myCanvas != null)
-            myCanvas.gameObject.SetActive(true);
+        if (menu != null)
+        {
+            TextMeshProUGUI textMesh = menu.GetComponentInChildren<TextMeshProUGUI>();
+            if (textMesh != null)
+            {
+                textMesh.text = message;
+            }
+            menu.gameObject.SetActive(true);
+        }
     }
 
     public void HideCanvas()
     {
         Time.timeScale = 1;
         isPaused = false;
-        if (myCanvas != null)
-            myCanvas.gameObject.SetActive(false);
+        if (menu != null)
+            menu.gameObject.SetActive(false);
     }
 }
