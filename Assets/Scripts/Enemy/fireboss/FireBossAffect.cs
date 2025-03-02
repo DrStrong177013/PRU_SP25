@@ -22,7 +22,6 @@ public class FireBossAffect : MonoBehaviour
     {
         Vector3Int tilePosition = tilemap.WorldToCell(enemy.groundCheck.position);
         TileBase currentTile = tilemap.GetTile(tilePosition);
-        Debug.Log("Enemy:" + currentTile);
 
         if (currentTile != null && currentTile != newTile)
         {

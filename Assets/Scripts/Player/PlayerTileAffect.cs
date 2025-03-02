@@ -9,14 +9,22 @@ public class PlayerTileAffect : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private List<TileBase> dangerousTiles;
     [SerializeField] private float damagePerSecond = 10f;
+    [SerializeField] private float damageCooldown = 1f;
     private bool isOnDangerTile = false;
+    private float damageTimer = 0f;
 
     private void Update()
     {
         CheckTile();
-        if (isOnDangerTile)
+        if (isOnDangerTile && damageTimer <= 0f)
         {
-            StepOn(damagePerSecond * Time.deltaTime);
+            StepOn(damagePerSecond);
+            damageTimer = damageCooldown;
+        }
+
+        if (damageTimer > 0f)
+        {
+            damageTimer -= Time.deltaTime;
         }
     }
 

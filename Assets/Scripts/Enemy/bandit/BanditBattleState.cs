@@ -22,7 +22,7 @@ public class BanditBattleState : EnemyState
         if (enemy.IsPlayerDetected())
         {
             stateTimer = enemy.battleTime;
-            enemy.anim.SetBool("Idle", false);// tui bi ngu
+            enemy.anim.SetBool("Idle", false);
             enemy.anim.SetBool("Move", true);
             if (enemy.IsPlayerDetected().distance <= enemy.attackDistance)
             {
@@ -68,7 +68,6 @@ public class BanditBattleState : EnemyState
             enemy.lastTimeAttacked = Time.time;
             return true;
         }
-        /*Debug.Log("Attack is on Cooldown");*/
         return false;
     }
 }
