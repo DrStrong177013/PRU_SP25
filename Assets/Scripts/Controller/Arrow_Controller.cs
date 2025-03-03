@@ -54,21 +54,20 @@ public class Arrow_Controller : MonoBehaviour
 
     private void StuckInto(Collider2D collision)
     {
-        GetComponentInChildren<ParticleSystem>().Stop();
+        //GetComponentInChildren<ParticleSystem>().Stop();
         GetComponent<CapsuleCollider2D>().enabled = false;
         canMove = false;
         //rb.isKinematic = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.parent = collision.transform;
 
-        Destroy(gameObject, Random.Range(5, 7));
+        Destroy(gameObject, Random.Range(0, 1));
     }
 
     public void FlipArrow()
     {
         if (flipped)
             return;
-
 
         xVelocity = xVelocity * -1;
         flipped = true;

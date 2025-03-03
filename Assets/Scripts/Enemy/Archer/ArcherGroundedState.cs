@@ -31,7 +31,7 @@ public class ArcherGroundedState : EnemyState
         base.Update();
 
       
-        if (enemy.IsPlayerDetected())
+        if (enemy.IsPlayerDetected() )
         {
             stateMachine.ChangeState(enemy.battleState);
         }
