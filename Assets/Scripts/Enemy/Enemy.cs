@@ -17,9 +17,12 @@ public class Enemy : Entity
     public float battleTime;
 
     [Header("Attack info")]
+    public float agroDistance = 2;
     public float attackDistance;
     public float attackCooldown;
     [HideInInspector] public float lastTimeAttacked;
+    public float minAttackCooldown = 1;
+    public float maxAttackCooldown = 2;
 
     public EnemyStateMachine stateMachine { get; private set; }
     public string lastAnimBoolName { get; private set; }
@@ -64,6 +67,10 @@ public class Enemy : Entity
     }
 
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+    public virtual void AnimationSpecialAttackTrigger()
+    {
+
+    }
     public virtual RaycastHit2D IsPlayerDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
 
     protected override void OnDrawGizmos()
