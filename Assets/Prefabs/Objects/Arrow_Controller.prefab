@@ -108,7 +108,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -173,7 +173,7 @@ MonoBehaviour:
   xVelocity: 2
   rb: {fileID: 106147569814717777}
   canMove: 1
-  flipped: 1
+  flipped: 0
 --- !u!1 &4027626789293325524
 GameObject:
   m_ObjectHideFlags: 0
