@@ -1,23 +1,46 @@
-using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public Player player;
-    public Canvas myCanvas;
+    public TextMeshProUGUI text;
+    public Canvas menu;
+    public GameObject submenu;
+    public string message;
+    public bool victory = false;
     private bool isPaused = false;
+    private float outOfMapThreshold = -16f;
+    public Vector2 checkpointPosition;
+    public Enemy_FireBoss finalBoss;
 
     void Start()
     {
-        if (myCanvas != null)
-            myCanvas.gameObject.SetActive(false);
+        if (menu != null)
+            menu.gameObject.SetActive(false);
     }
 
     void Update()
     {
         InteractMenu();
-        EndGame();
+        BossDie();
+        PlayerDie();
+        CheckPlayerOutOfMap();
+    }
+
+    public void BossDie()
+    {
+        if (finalBoss.GetComponent<EnemyStats>().currentHealth <= 0)
+        {
+            victory = true;
+        }
+    }
+
+    public void WinGame(string message)
+    {
+        this.message = message;
+        ShowCanvas();
     }
 
     public void InteractMenu()
@@ -31,17 +54,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    public void PlayerDie()
     {
         if (player != null)
         {
-            int playerCurrentHealth = player.GetComponent<PlayerStats>().currentHealth;
-
-            // TODO Slow load for player die animation
-            if (playerCurrentHealth <= 0)
+            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            if (playerStats.currentHealth <= 0)
             {
-                ShowCanvas();
+                if (checkpointPosition != Vector2.zero)
+                {
+                    player.transform.position = checkpointPosition;
+                    playerStats.currentHealth = playerStats.GetMaxHealthValue();
+                    player.stateMachine.ChangeState(player.idleState);
+                }
+                else
+                {
+                    message = "Too much damgage? \n Maybe better luck next time";
+                    ShowCanvas();
+                }
             }
+        }
+    }
+
+    private void CheckPlayerOutOfMap()
+    {
+        if (player != null && player.transform.position.y < outOfMapThreshold)
+        {
+            ShowCanvas();
         }
     }
 
@@ -55,20 +94,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void RoundsMenu()
+    {
+        submenu.gameObject.SetActive(true);
+    }
+
     public void ShowCanvas()
     {
-
         Time.timeScale = 0;
         isPaused = true;
-        if (myCanvas != null)
-            myCanvas.gameObject.SetActive(true);
+        if (menu != null)
+        {
+            if (text != null)
+            {
+                text.text = message;
+            }
+            menu.gameObject.SetActive(true);
+        }
     }
 
     public void HideCanvas()
     {
         Time.timeScale = 1;
         isPaused = false;
-        if (myCanvas != null)
-            myCanvas.gameObject.SetActive(false);
+        if (menu != null)
+            menu.gameObject.SetActive(false);
+    }
+
+    internal void SetCheckpoint(Vector2 checkpointPosition)
+    {
+        this.checkpointPosition = checkpointPosition;
     }
 }

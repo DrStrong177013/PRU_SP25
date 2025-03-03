@@ -12,19 +12,24 @@ public class HealthBar_UI : MonoBehaviour
     private void Start()
     {
         myTransform = GetComponent<RectTransform>();
-        if (myTransform == null)
-        {
-            Debug.LogError($"HealthBar_UI: {gameObject.name} không có RectTransform!", this);
-        }
         entity = GetComponentInParent<Entity>();
         slider = GetComponentInChildren<Slider>();
         myStats = GetComponentInParent<CharacterStats>();
 
-        //slider.value = slider.maxValue;
         entity.onFlipped += FlipUI;
         myStats.onHealthChanged += UpdateHealthUI;
 
         UpdateHealthUI();
+    }
+
+    private void Update()
+    {
+        UpdateCurrentHealth();
+    }
+
+    private void UpdateCurrentHealth()
+    {
+        slider.value = myStats.currentHealth;
     }
 
     private void UpdateHealthUI()

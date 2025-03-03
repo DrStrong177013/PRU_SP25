@@ -14,8 +14,8 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - 
-  - 
+  - IgnoreGround
+  - Statue
   - 
   - 
   - 
@@ -56,6 +56,9 @@ TagManager:
     locked: 0
   - name: Water
     uniqueID: 862648027
+    locked: 0
+  - name: UI
+    uniqueID: 794965315
     locked: 0
   m_RenderingLayers:
   - Default

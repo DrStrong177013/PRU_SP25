@@ -18,11 +18,9 @@ public class Enemy_FireBossAnimation : MonoBehaviour
             {
                 PlayerStats target = hit.GetComponent<PlayerStats>();
                 enemy.stats.DoDamage(target);
-
             }
         }
     }
     private void OpenCounterWindow() => enemy.OpenCounterAttackWindow();
     private void CloseCounterWindow() => enemy.CloseCounterAttackWindow();
 }
-
