@@ -82,6 +82,7 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void DoDamage(CharacterStats _targetStats)
     {
+
         if (TargetCanAvoidAttack(_targetStats))
             return;
 
@@ -90,11 +91,13 @@ public class CharacterStats : MonoBehaviour
         if (CanCrit())
         {
             totalDamage = CalculateCriticalDamage(totalDamage);
+
         }
 
 
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
+
         _targetStats.TakeDamage(totalDamage);
         /*DoMagicalDamage(_targetStats);*/
 
@@ -291,6 +294,10 @@ public class CharacterStats : MonoBehaviour
     protected virtual void DecreaseHealthBy(int _damage)
     {
         currentHealth -= _damage;
+        if (_damage > 0)
+        {
+            fx.CreatPopUpText(_damage.ToString());
+        }
 
         if (onHealthChanged != null)
             onHealthChanged();
@@ -332,6 +339,7 @@ public class CharacterStats : MonoBehaviour
 
         if (Random.Range(0, 100) < totalEvasion)
         {
+            fx.CreatPopUpText("Attack miss");
             return true;
         }
 

@@ -99,6 +99,7 @@ public class Player : Entity
                 dashDir = facingDir;
             }
             stateMachine.ChangeState(dashState);
+
         }
     }
 

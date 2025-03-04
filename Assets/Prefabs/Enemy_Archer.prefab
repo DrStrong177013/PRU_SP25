@@ -680,6 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ee1d8556d27d74c887ef4d715b838e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpTextPrefab: {fileID: 630406584368571826, guid: caa21199ee2e0e34e820cbf6ef147229, type: 3}
   flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 1e468d4b3455bbd4dbef9d74aea7d605, type: 2}
   igniteColor: []
