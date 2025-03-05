@@ -15455,7 +15455,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 3.9, z: -10.032301}
+  m_LocalPosition: {x: 0.88, y: -2.25, z: -10.032301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16507,6 +16507,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7488221669192393823, guid: 4c7dd8bc42b849a48bbbeb9fbe4f1f9a, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1993492000}
     - target: {fileID: 7845869513267545681, guid: 4c7dd8bc42b849a48bbbeb9fbe4f1f9a, type: 3}
       propertyPath: popUpTextPrefab
       value: 
@@ -23241,6 +23245,11 @@ Transform:
 --- !u!4 &1993491996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7991589644961242057, guid: 4c7dd8bc42b849a48bbbeb9fbe4f1f9a, type: 3}
+  m_PrefabInstance: {fileID: 1605234768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1993492000 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 2045205283343181198, guid: 4c7dd8bc42b849a48bbbeb9fbe4f1f9a, type: 3}
   m_PrefabInstance: {fileID: 1605234768}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7128902538416090655
