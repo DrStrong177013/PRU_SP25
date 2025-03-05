@@ -10,6 +10,7 @@ public class Enemy_Spider : MonoBehaviour
     public float holdPositionY = -11.77f; // Set the Y position to hold the player
 
     private bool isGrabbing = false;
+    private bool isCollsion = false;
     private Animator animator;
     private Rigidbody2D playerRb;
     private PlayerStats playerStats;
@@ -20,18 +21,32 @@ public class Enemy_Spider : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        CheckForGrab();
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!isGrabbing && collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
+            isCollsion = true;
             currentPlayer = collision;
-            animator.SetTrigger("Grab");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isCollsion = false;
+            currentPlayer = null;
         }
     }
 
     public void CheckForGrab()
     {
-        if (currentPlayer != null && currentPlayer.CompareTag("Player"))
+        if (currentPlayer != null && isCollsion)
         {
             StartCoroutine(GrabPlayer(currentPlayer.gameObject));
         }
@@ -42,10 +57,10 @@ public class Enemy_Spider : MonoBehaviour
         isGrabbing = true;
         playerRb = player.GetComponent<Rigidbody2D>();
         playerStats = player.GetComponent<PlayerStats>();
-        playerRb.bodyType = RigidbodyType2D.Kinematic;
 
         if (playerRb != null)
         {
+            playerRb.bodyType = RigidbodyType2D.Kinematic;
             playerRb.gravityScale = 0;
         }
 
@@ -53,10 +68,11 @@ public class Enemy_Spider : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         Vector3 targetPosition = player.transform.position;
-        targetPosition.y = holdPositionY; // Set the exact Y position
+        targetPosition.y = holdPositionY;
 
         while (Mathf.Abs(player.transform.position.y - holdPositionY) > 0.01f)
         {
+            if (!isCollsion) break;
             player.transform.position = Vector3.Lerp(player.transform.position, targetPosition, liftSpeed * Time.deltaTime);
             yield return null;
         }
@@ -64,6 +80,7 @@ public class Enemy_Spider : MonoBehaviour
         float damageTime = 0f;
         while (damageTime < grabDuration)
         {
+            if (!isCollsion) break;
             yield return new WaitForSeconds(damageInterval);
             playerStats?.TakeDamage(damagePerSecond);
             damageTime += damageInterval;
@@ -71,12 +88,11 @@ public class Enemy_Spider : MonoBehaviour
 
         if (playerRb != null)
         {
+            playerRb.bodyType = RigidbodyType2D.Dynamic;
             playerRb.gravityScale = 1;
         }
 
         isGrabbing = false;
         currentPlayer = null;
-
-        playerRb.bodyType = RigidbodyType2D.Dynamic;
     }
 }
