@@ -8,7 +8,7 @@ public class CheckpointStatueBehavior : MonoBehaviour
     private float nextHealTime = 0f;
     private Vector2 checkpointPosition;
 
-    [SerializeField] public GameManager gameManager;
+    public GameManager gameManager;
 
     private void Start()
     {

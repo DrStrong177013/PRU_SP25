@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
     public string message;
     public bool victory = false;
     private bool isPaused = false;
-    private float outOfMapThreshold = -16f;
+    public float outOfMapThreshold = -16f;
     public Vector2 checkpointPosition;
-    public Enemy_FireBoss finalBoss;
+    public Enemy finalBoss;
 
     void Start()
     {
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         if (finalBoss.GetComponent<EnemyStats>().currentHealth <= 0)
         {
             victory = true;
+            WinGame("Victory");
         }
     }
 
