@@ -19,7 +19,6 @@ public class ArcherDeadState : EnemyState
         enemy.anim.speed = 0;
         enemy.cd.enabled = false;
 
-
         stateTimer = .15f;
     }
 

@@ -42,8 +42,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(int _sfxIndex, Transform _source)
     {
-        //if (sfx[_sfxIndex].isPlaying)
-        //    return;
+        if (sfx[_sfxIndex].isPlaying)
+            return;
 
         if (canPlaySFX == false)
             return;

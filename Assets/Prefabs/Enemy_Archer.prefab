@@ -655,10 +655,10 @@ MonoBehaviour:
   battleTime: 4
   agroDistance: 2
   attackDistance: 8
-  attackCooldown: 0.55
+  attackCooldown: 0.8
   lastTimeAttacked: 0
   minAttackCooldown: 0.35
-  maxAttackCooldown: 0.55
+  maxAttackCooldown: 1
   arrowPrefab: {fileID: 819080360879703648, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
   arrowSpeed: 5
   arrowDamage: 10
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength:
-    baseValue: 2
+    baseValue: 5
     modifiers: 
   agility:
     baseValue: 5
@@ -711,7 +711,7 @@ MonoBehaviour:
     baseValue: 2
     modifiers: 
   damage:
-    baseValue: 3
+    baseValue: 5
     modifiers: 
   critChance:
     baseValue: 30
@@ -807,8 +807,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.26907778, y: -0.50611526}
-  m_Size: {x: 0.43236923, y: 1.1411012}
+  m_Offset: {x: -0.23734593, y: -0.46169078}
+  m_Size: {x: 0.64814425, y: 1.280721}
   m_Direction: 0
 --- !u!1 &8178029489852491890
 GameObject:
