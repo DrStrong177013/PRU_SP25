@@ -1,8 +1,13 @@
+﻿using System.Collections;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
     private EntityFX fx;
+
+    private int bonusDamage = 0; // Sát thương cộng thêm từ item
+    private Coroutine bonusDamageCoroutine; // Lưu Coroutine để có thể hủy nếu cần
+
 
     [Header("Major stats")]
     public Stat strength; // 1 point increase damage by 1 and crit.power by 1%
@@ -78,6 +83,53 @@ public class CharacterStats : MonoBehaviour
             ApplyIgniteDamage();
     }
 
+    public void AddTemporaryArmor(int amount, float duration)
+    {
+        armor.AddModifier(amount);
+        Debug.Log("Giáp tạm thời: " + armor.GetValue());
+        StartCoroutine(RemoveArmorAfterTime(amount, duration));
+    }
+
+    private IEnumerator RemoveArmorAfterTime(int amount, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (armor.modifiers.Contains(amount))
+        {
+            armor.RemoveModifier(amount);
+            Debug.Log("Giáp trở lại: " + armor.GetValue());
+        }
+        else
+        {
+            Debug.LogWarning("Không tìm thấy giáp cần xóa!");
+        }
+    }
+
+
+
+
+    public void AddBonusDamage(int amount)
+    {
+        bonusDamage += amount;
+        Debug.Log("Sát thương cộng thêm: " + bonusDamage);
+
+        // Nếu đang có buff sát thương, reset lại thời gian
+        if (bonusDamageCoroutine != null)
+        {
+            StopCoroutine(bonusDamageCoroutine);
+        }
+
+        // Bắt đầu Coroutine để reset lại sau 30 giây
+        bonusDamageCoroutine = StartCoroutine(RemoveBonusDamageAfterTime(10f));
+    }
+
+    private IEnumerator RemoveBonusDamageAfterTime(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        bonusDamage = 0;
+        Debug.Log("Buff sát thương đã hết! BonusDamage trở về: " + bonusDamage);
+    }
+
 
 
     public virtual void DoDamage(CharacterStats _targetStats)
@@ -86,7 +138,7 @@ public class CharacterStats : MonoBehaviour
         if (TargetCanAvoidAttack(_targetStats))
             return;
 
-        int totalDamage = damage.GetValue() + strength.GetValue();
+        int totalDamage = damage.GetValue() + strength.GetValue() + bonusDamage;
 
         if (CanCrit())
         {
@@ -370,6 +422,20 @@ public class CharacterStats : MonoBehaviour
     public int GetMaxHealthValue()
     {
         return maxHealth.GetValue() + vitality.GetValue() * 5;
+    }
+
+    public void Heal(int healAmount)
+    {
+        if (currentHealth <= 0) return; // Nếu nhân vật đã chết, không hồi máu
+
+        currentHealth += healAmount;
+        if (currentHealth > GetMaxHealthValue())
+        {
+            currentHealth = GetMaxHealthValue(); // Giới hạn không vượt quá max
+        }
+
+        onHealthChanged?.Invoke(); // Cập nhật UI (nếu có)
+        Debug.Log("Hồi máu: " + healAmount + " | Máu hiện tại: " + currentHealth);
     }
 
     #endregion
