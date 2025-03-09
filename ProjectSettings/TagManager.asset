@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Climbing
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Enemy
   - IgnoreGround
   - Statue
-  - 
+  - FX
   - 
   - 
   - 
@@ -47,6 +48,12 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 2931104255
+    locked: 0
+  - name: ForeGround
+    uniqueID: 2937163589
+    locked: 0
+  - name: Items
+    uniqueID: 3627018837
     locked: 0
   - name: Enemy
     uniqueID: 951029019

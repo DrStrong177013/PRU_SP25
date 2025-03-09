@@ -6,6 +6,7 @@ public class ArcherBattleState : EnemyState
 {
     private Transform player;
     private Enemy_Archer enemy;
+    private Arrow_Controller arrow;
 
     public ArcherBattleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Archer _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
@@ -15,6 +16,7 @@ public class ArcherBattleState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        player = GameObject.Find("Player").transform;
 
         //player = PlayerManager.instance.player.transform;
 
@@ -29,7 +31,7 @@ public class ArcherBattleState : EnemyState
         base.Update();
         if (enemy.IsPlayerDetected())
         {
-    
+
             stateTimer = enemy.battleTime;
 
             if (enemy.IsPlayerDetected().distance < enemy.safeDistance)
@@ -49,7 +51,7 @@ public class ArcherBattleState : EnemyState
 
             if (stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 7)
             {
-      
+
                 stateMachine.ChangeState(enemy.idleState);
             }
         }
@@ -60,10 +62,18 @@ public class ArcherBattleState : EnemyState
 
     private void BattleStateFlipControll()
     {
-        if (player.position.x > enemy.transform.position.x)
+
+        if (player.position.x > enemy.transform.position.x && enemy.facingDir == -1)
+        {
             enemy.Flip();
-        else if (player.position.x < enemy.transform.position.x)
+        
+        }
+        else if (player.position.x < enemy.transform.position.x && enemy.facingDir == 1)
+        {
+         
             enemy.Flip();
+        }
+
     }
 
     public override void Exit()

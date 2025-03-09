@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
+
     public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -9,13 +10,14 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.PlaySFX(0, null);
 
     }
 
     public override void Exit()
     {
         base.Exit();
-
+        AudioManager.instance.StopSFX(0);
     }
 
     public override void Update()

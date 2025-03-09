@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EntityFX : MonoBehaviour
 {
+
+    [Header("Pop Up Text")]
+    [SerializeField]
+    private GameObject popUpTextPrefab;
 
     private SpriteRenderer sr;
 
@@ -32,7 +37,14 @@ public class EntityFX : MonoBehaviour
             sr.color = Color.white;
     }
 
-
+    public void CreatPopUpText(string _text)
+    {
+        float randomX = Random.Range(0, 0);
+        float randomY = Random.Range(0, 0);
+        Vector3 positionOffset = new Vector3(randomX, randomY, 0);
+        GameObject newText = Instantiate(popUpTextPrefab, transform.position + positionOffset, Quaternion.identity);
+        newText.GetComponent<TextMeshPro>().text = _text;
+    }
     private IEnumerator FlashFX()
     {
         sr.material = hitMat;

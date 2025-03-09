@@ -187,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 4135566786619755879}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21, y: -0.23, z: -1}
+  m_LocalPosition: {x: -0.144, y: -0.205, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -536,7 +536,7 @@ Transform:
   m_GameObject: {fileID: 7430114341094753944}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.27, y: -1.29, z: -1}
+  m_LocalPosition: {x: 0.37, y: -1.242, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -640,7 +640,7 @@ MonoBehaviour:
   groundCheck: {fileID: 6519756667373831738}
   groundCheckDistance: 0.3
   wallCheck: {fileID: 5355191380259046857}
-  wallCheckDistance: 0.7
+  wallCheckDistance: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -655,10 +655,10 @@ MonoBehaviour:
   battleTime: 4
   agroDistance: 2
   attackDistance: 8
-  attackCooldown: 0.55
+  attackCooldown: 0.8
   lastTimeAttacked: 0
   minAttackCooldown: 0.35
-  maxAttackCooldown: 0.55
+  maxAttackCooldown: 1
   arrowPrefab: {fileID: 819080360879703648, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
   arrowSpeed: 5
   arrowDamage: 10
@@ -667,7 +667,7 @@ MonoBehaviour:
   safeDistance: 3
   lastTimeJumped: 0
   groundBehindCheck: {fileID: 6083224108019256366}
-  groundBehindCheckSize: {x: 3, y: 0.5}
+  groundBehindCheckSize: {x: 2, y: 3}
 --- !u!114 &4087765616530924471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,6 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ee1d8556d27d74c887ef4d715b838e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpTextPrefab: {fileID: 630406584368571826, guid: caa21199ee2e0e34e820cbf6ef147229, type: 3}
   flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 1e468d4b3455bbd4dbef9d74aea7d605, type: 2}
   igniteColor: []
@@ -698,7 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength:
-    baseValue: 2
+    baseValue: 5
     modifiers: 
   agility:
     baseValue: 5
@@ -788,7 +789,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -806,8 +807,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.26907778, y: -0.50611526}
-  m_Size: {x: 0.43236923, y: 1.1411012}
+  m_Offset: {x: -0.23734593, y: -0.46169078}
+  m_Size: {x: 0.64814425, y: 1.280721}
   m_Direction: 0
 --- !u!1 &8178029489852491890
 GameObject:
@@ -834,7 +835,7 @@ Transform:
   m_GameObject: {fileID: 8178029489852491890}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.82, y: -1.21, z: 0}
+  m_LocalPosition: {x: -2.9, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

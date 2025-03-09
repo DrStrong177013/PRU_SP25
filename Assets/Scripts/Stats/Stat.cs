@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,7 +6,8 @@ public class Stat
 {
     [SerializeField] private int baseValue;
 
-    public List<int> modifiers;
+    public List<int> modifiers = new List<int>();  // Khởi tạo danh sách tránh lỗi NullReference
+
     public int GetValue()
     {
         int finalValue = baseValue;
@@ -32,6 +32,13 @@ public class Stat
 
     public void RemoveModifier(int _modifier)
     {
-        modifiers.RemoveAt(_modifier);
+        if (modifiers.Contains(_modifier))
+        {
+            modifiers.Remove(_modifier); 
+        }
+        else
+        {
+            Debug.LogWarning("Modifier không tồn tại, không thể xóa.");
+        }
     }
 }
