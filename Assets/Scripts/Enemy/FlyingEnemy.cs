@@ -1,3 +1,4 @@
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class FlyingEnemy : MonoBehaviour
     public float attackCheckRadius;
     public float moveSpeed = 2f;
     public float flightRange = 5f;
+    public int damage = 10;
 
     private float startX;
     public int direction = -1;
@@ -44,6 +46,8 @@ public class FlyingEnemy : MonoBehaviour
             startX = transform.position.x;
             hitWall = false;
         }
+
+        AttackTrigger();
     }
 
     private void Flip()
@@ -52,13 +56,37 @@ public class FlyingEnemy : MonoBehaviour
         anim.transform.localScale = new Vector3(-anim.transform.localScale.x, anim.transform.localScale.y, anim.transform.localScale.z);
     }
 
-    public void TakeDamage(float amount)
+    private void AttackTrigger()
     {
-        health -= amount;
-        healthBar.value = health;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackCheck.position, attackCheckRadius);
 
-        if (health <= 0)
-            Destroy(gameObject);
+        foreach (var hit in colliders)
+        {
+            if (hit.GetComponent<Player>() != null)
+            {
+                PlayerStats target = hit.GetComponent<PlayerStats>();
+                DoDamage(target);
+            }
+        }
+    }
+
+    private void DoDamage(CharacterStats _targetStats)
+    {
+        int totalDamage = damage;
+        totalDamage = CheckTargetArmor(_targetStats, totalDamage);
+        _targetStats.TakeDamage(totalDamage);
+    }
+
+    private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
+    {
+        if (_targetStats.isChilled)
+            totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
+        else
+            totalDamage -= _targetStats.armor.GetValue();
+
+
+        totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
+        return totalDamage;
     }
 
     private bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * direction, wallCheckDistance);

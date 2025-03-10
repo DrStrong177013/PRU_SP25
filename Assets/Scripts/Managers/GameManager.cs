@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            submenu.SetActive(false);
             if (isPaused)
                 HideCanvas();
             else
