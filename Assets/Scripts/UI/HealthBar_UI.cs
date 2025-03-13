@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class HealthBar_UI : MonoBehaviour
 {
-    private Entity entity;
-    private CharacterStats myStats;
+    private Entity entity => GetComponentInParent<Entity>();
+    private CharacterStats myStats => GetComponentInParent<CharacterStats>();
     private RectTransform myTransform;
     private Slider slider;
 
@@ -12,14 +12,18 @@ public class HealthBar_UI : MonoBehaviour
     private void Start()
     {
         myTransform = GetComponent<RectTransform>();
-        entity = GetComponentInParent<Entity>();
+        //entity = GetComponentInParent<Entity>();
         slider = GetComponentInChildren<Slider>();
-        myStats = GetComponentInParent<CharacterStats>();
+        //myStats = GetComponentInParent<CharacterStats>();
 
-        entity.onFlipped += FlipUI;
-        myStats.onHealthChanged += UpdateHealthUI;
 
         UpdateHealthUI();
+    }
+
+    private void OnEnable()
+    {
+        entity.onFlipped += FlipUI;
+        myStats.onHealthChanged += UpdateHealthUI;
     }
 
     private void Update()
@@ -38,11 +42,13 @@ public class HealthBar_UI : MonoBehaviour
         slider.value = myStats.currentHealth;
     }
 
-    private void FlipUI() => myTransform.Rotate(0, 180, 0);
 
     private void OnDisable()
     {
-        entity.onFlipped -= FlipUI;
-        myStats.onHealthChanged -= UpdateHealthUI;
+        if (entity != null)
+            entity.onFlipped -= FlipUI;
+        if (myStats != null)
+            myStats.onHealthChanged -= UpdateHealthUI;
     }
+    private void FlipUI() => myTransform.Rotate(0, 180, 0);
 }

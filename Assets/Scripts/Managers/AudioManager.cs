@@ -61,7 +61,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StopSFX(int _index) => sfx[_index].Stop();
+    //public void StopSFX(int _index) => sfx[_index].Stop();
 
     public void StopSFXWithTime(int _index) => StartCoroutine(DecreaseVolume(sfx[_index]));
 

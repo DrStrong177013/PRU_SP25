@@ -14,6 +14,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.PlaySFX(1, null);
         xInput = 0;// fix bug attack direction
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
             comboCounter = 0;
@@ -32,7 +33,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Exit()
     {
         base.Exit();
-
+        //AudioManager.instance.StopSFX(1);
         player.StartCoroutine("BusyFor", .15f);
 
 

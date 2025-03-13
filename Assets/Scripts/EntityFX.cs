@@ -22,19 +22,27 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private Color[] igniteColor;
     [SerializeField] private Color[] chillColor;
     [SerializeField] private Color[] shockColor;
+
+    private GameObject myHealthBar;
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         originalMat = sr.material;
-
+        myHealthBar = GetComponentInChildren<HealthBar_UI>().gameObject;
     }
 
     public void MakeTransprent(bool _transprent)
     {
         if (_transprent)
+        {
+            myHealthBar.SetActive(false);
             sr.color = Color.clear;
+        }
         else
+        {
+            myHealthBar.SetActive(true);
             sr.color = Color.white;
+        }
     }
 
     public void CreatPopUpText(string _text)
