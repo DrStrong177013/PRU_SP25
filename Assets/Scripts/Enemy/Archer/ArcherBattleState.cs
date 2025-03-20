@@ -6,7 +6,7 @@ public class ArcherBattleState : EnemyState
 {
     private Transform player;
     private Enemy_Archer enemy;
-    private Arrow_Controller arrow;
+    //private Arrow_Controller arrow;
 
     public ArcherBattleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Archer _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
@@ -66,11 +66,11 @@ public class ArcherBattleState : EnemyState
         if (player.position.x > enemy.transform.position.x && enemy.facingDir == -1)
         {
             enemy.Flip();
-        
+
         }
         else if (player.position.x < enemy.transform.position.x && enemy.facingDir == 1)
         {
-         
+
             enemy.Flip();
         }
 

@@ -17,7 +17,7 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Exit()
     {
         base.Exit();
-        AudioManager.instance.StopSFX(0);
+        //AudioManager.instance.StopSFX(0);
     }
 
     public override void Update()
