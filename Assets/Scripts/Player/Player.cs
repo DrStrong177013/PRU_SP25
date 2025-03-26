@@ -1,16 +1,23 @@
+
 using System.Collections;
+using System.Xml;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Entity
 {
     [Header("Attack details")]
     public Vector2[] attackMovement;
-    public ParticleSystem dust;
+    public float counterAttackDuration = .2f;
+
     public bool isBusy { get; private set; }
 
     [Header("Move info")]
+    [SerializeField] private float waterSlowFactor = 0.5f;
+    private float defaultMoveSpeed;
     public float moveSpeed = 4f;
     public float jumpForce;
+    public ParticleSystem dust;
 
     [Header("Dash info")]
     [SerializeField] private float dashCoolDown;
@@ -18,10 +25,6 @@ public class Player : Entity
     public float dashSpeed;
     public float dashDuration;
     public float dashDir { get; private set; }
-
-
-
-
 
     #region States
     public PlayerStateMachine stateMachine
@@ -36,6 +39,9 @@ public class Player : Entity
     public PlayerDashState dashState { get; private set; }
 
     public PlayerPrimaryAttackState primaryAttack { get; private set; }
+    public PlayerCounterAttackState counterAttack { get; private set; }
+
+    public PlayerDeathState deadState { get; private set; }
     #endregion
 
     protected override void Awake()
@@ -51,38 +57,33 @@ public class Player : Entity
         wallJump = new PlayerWallJumpState(this, stateMachine, "Jump");
 
         primaryAttack = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
+        counterAttack = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
+        deadState = new PlayerDeathState(this, stateMachine, "Die");
     }
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(idleState);
-
-
+        defaultMoveSpeed = moveSpeed;
     }
 
 
     protected override void Update()
     {
         base.Update();
-        stateMachine.currentState.Update();
-
         CheckForDashInput();
-
-
-
+        HandleWaterInteraction();
+        stateMachine.currentState.Update();
     }
 
     public IEnumerator BusyFor(float _secounds)
     {
         isBusy = true;
-        //Debug.Log("is BUSY");
         yield return new WaitForSeconds(_secounds);
-        //Debug.Log("NOT busy");
         isBusy = false;
-
     }
 
-    public void AnimationTrigger() => stateMachine.currentState.AnimatòòionFinishTrigger();
+    public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     private void CheckForDashInput()
     {
         if (IsWallDetected())
@@ -99,11 +100,30 @@ public class Player : Entity
                 dashDir = facingDir;
             }
             stateMachine.ChangeState(dashState);
+
         }
     }
 
+    private void HandleWaterInteraction()
+    {
+        if (IsInWater())
+        {
+            moveSpeed = defaultMoveSpeed * waterSlowFactor;
+        }
+        else
+        {
+            moveSpeed = defaultMoveSpeed;
+        }
+    }
 
+    private bool IsInWater()
+    {
+        return Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, LayerMask.GetMask("Water")) != null;
+    }
 
-
-
+    public override void Die()
+    {
+        base.Die();
+        stateMachine.ChangeState(deadState);
+    }
 }

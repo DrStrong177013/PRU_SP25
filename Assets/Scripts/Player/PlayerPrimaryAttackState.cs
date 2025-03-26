@@ -14,6 +14,8 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.PlaySFX(1, null);
+        xInput = 0;// fix bug attack direction
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
             comboCounter = 0;
         player.anim.SetInteger("ComboCounter", comboCounter);
@@ -22,7 +24,7 @@ public class PlayerPrimaryAttackState : PlayerState
 
         if (xInput != 0)
             attackDir = xInput;
-
+        player.dust.Play();
         player.SetVelocity(player.attackMovement[comboCounter].x * player.facingDir, player.attackMovement[comboCounter].y);
 
         stateTimer = .1f;
@@ -31,7 +33,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Exit()
     {
         base.Exit();
-
+        //AudioManager.instance.StopSFX(1);
         player.StartCoroutine("BusyFor", .15f);
 
 
@@ -45,7 +47,7 @@ public class PlayerPrimaryAttackState : PlayerState
         base.Update();
 
         if (stateTimer < 0)
-            player.ZeroVelocity();
+            player.SetZeroVelocity();
 
         if (triggerCalled)
             stateMachine.ChangeState(player.idleState);
