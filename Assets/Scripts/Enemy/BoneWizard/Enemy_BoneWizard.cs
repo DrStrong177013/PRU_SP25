@@ -3,8 +3,13 @@ using UnityEngine;
 public class Enemy_BoneWizard : Enemy
 {
     public bool bossFightBegun;
+    [Header("Normal AttackSpell info")]
+    [SerializeField] private GameObject norSpellPrefab;
+    [SerializeField] private float norSpellSpeed;
+    [SerializeField] private float norSpellDamage;
 
     [Header("Spell cast details")]
+
     [SerializeField] private GameObject spellPrefab;
     public int amountOfSpells;
     public float spellCooldown;
@@ -80,6 +85,11 @@ public class Enemy_BoneWizard : Enemy
             //Debug.Log("Looking for new position");
             FindPosition();
         }
+    }
+    public override void AnimationSpecialAttackTrigger()
+    {
+        GameObject newArrow = Instantiate(norSpellPrefab, attackCheck.position, Quaternion.identity);
+        newArrow.GetComponent<Arrow_Controller>().SetupArrow(norSpellSpeed * facingDir, stats);
     }
 
 

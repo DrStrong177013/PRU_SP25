@@ -12,7 +12,7 @@ public class Enemy_Archer : Enemy
 
     public Vector2 jumpVelocity;
     public float jumpCooldown;
-    public float safeDistance; // how close palyer should be to trigger jump on battle state
+    public float safeDistance; 
     [HideInInspector] public float lastTimeJumped;
 
     [Header("Additional collision check")]
