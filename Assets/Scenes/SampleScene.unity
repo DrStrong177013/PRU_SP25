@@ -29256,7 +29256,7 @@ RectTransform:
   m_Father: {fileID: 1966933319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -2.5, y: 0}
   m_SizeDelta: {x: 5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -30974,7 +30974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1340241256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38424,15 +38424,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378076392317516829, guid: d1f0c8cd12191a445b4528a27c093fd3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6378076392317516829, guid: d1f0c8cd12191a445b4528a27c093fd3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8712531311548885965, guid: d1f0c8cd12191a445b4528a27c093fd3, type: 3}
       propertyPath: m_Name
       value: Bandit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712531311548885965, guid: d1f0c8cd12191a445b4528a27c093fd3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

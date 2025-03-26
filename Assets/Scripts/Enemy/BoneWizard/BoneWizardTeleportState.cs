@@ -20,10 +20,10 @@ public class BoneWizardTeleportState : EnemyState
 
         if (triggerCalled)
         {
-            //if (enemy.CanDoSpellCast())
-            //    stateMachine.ChangeState(enemy.spellCastState);
-            //else
-            stateMachine.ChangeState(enemy.battleState);
+            if (enemy.CanDoSpellCast())
+                stateMachine.ChangeState(enemy.spellCastState);
+            else
+                stateMachine.ChangeState(enemy.battleState);
 
 
         }
