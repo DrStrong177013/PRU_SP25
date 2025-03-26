@@ -28826,7 +28826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729596043044832318, guid: 20ba9b74709cace49b9feaaecdf75f15, type: 3}
       propertyPath: sceneNames.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4729596043044832318, guid: 20ba9b74709cace49b9feaaecdf75f15, type: 3}
       propertyPath: 'sceneNames.Array.data[0]'
@@ -28835,6 +28835,10 @@ PrefabInstance:
     - target: {fileID: 4729596043044832318, guid: 20ba9b74709cace49b9feaaecdf75f15, type: 3}
       propertyPath: 'sceneNames.Array.data[2]'
       value: CaveScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729596043044832318, guid: 20ba9b74709cace49b9feaaecdf75f15, type: 3}
+      propertyPath: 'sceneNames.Array.data[3]'
+      value: FieldScene
       objectReference: {fileID: 0}
     - target: {fileID: 5911907937705098718, guid: 20ba9b74709cace49b9feaaecdf75f15, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
