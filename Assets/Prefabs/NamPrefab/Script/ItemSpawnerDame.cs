@@ -2,7 +2,7 @@
 
 public class ItemSpawnerDame : MonoBehaviour
 {
-    public int damage = 10; // Sát thương gây ra
+    public int damage = 10;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,12 +13,12 @@ public class ItemSpawnerDame : MonoBehaviour
             {
                 characterStats.TakeDamage(damage);
             }
-            Destroy(gameObject); // Xóa vật phẩm sau khi gây damage
+            Destroy(gameObject);
         }
     }
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject); // Xóa vật phẩm khi ra khỏi màn hình
+        Destroy(gameObject);
     }
 }

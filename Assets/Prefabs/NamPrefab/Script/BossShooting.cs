@@ -1,29 +1,22 @@
-﻿
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BossShooting : MonoBehaviour
 {
-    [Header("Shooting Settings")]
     [SerializeField] private float shootingRange = 8f;
     [SerializeField] private float minShootingDistance = 3f;
-    [SerializeField] private float fireRate = 2f;
     [SerializeField] private GameObject bossBulletPrefab;
     [SerializeField] private GameObject bigBulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private int shotsBeforeBigBullet = 5;
 
-    [Header("Spawner Settings")]
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private float spawnActivationRange = 2f;
-    [SerializeField] private float spawnCooldown = 5f; // Thời gian chờ giữa các lần spawn enemy
+    [SerializeField] private float spawnCooldown = 15f;
 
-    [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private Animator animator;
 
-    private float nextFireTime = 0f;
-    private float nextSpawnTime = 0f; // Thời gian để spawn enemy tiếp theo
+    private float nextSpawnTime = 0f;
     private int shootCount = 0;
 
     private void Start()
@@ -44,17 +37,12 @@ public class BossShooting : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // Debug khoảng cách
-        Debug.Log($"Distance to player: {distanceToPlayer:F2} | Spawn Range: {spawnActivationRange}");
-
-        // Spawn enemy khi player ở gần boss và đã qua thời gian cooldown
         if (distanceToPlayer <= spawnActivationRange && Time.time >= nextSpawnTime)
         {
             if (spawner != null)
             {
-                spawner.SpawnEnemy(); // Gọi hàm spawn trực tiếp
-                nextSpawnTime = Time.time + spawnCooldown; // Đặt lại thời gian spawn tiếp theo
-                Debug.Log("Boss triggers enemy spawn!");
+                spawner.SpawnEnemy();
+                nextSpawnTime = Time.time + spawnCooldown;
             }
             else
             {
@@ -62,13 +50,9 @@ public class BossShooting : MonoBehaviour
             }
         }
 
-        // Logic bắn đạn
-        if (distanceToPlayer <= shootingRange &&
-            distanceToPlayer >= minShootingDistance &&
-            Time.time >= nextFireTime)
+        if (distanceToPlayer <= shootingRange && distanceToPlayer >= minShootingDistance)
         {
             animator.SetTrigger("Attack");
-            nextFireTime = Time.time + 1f / fireRate;
         }
     }
 
@@ -97,7 +81,7 @@ public class BossShooting : MonoBehaviour
 
         if (bulletPrefabToUse != null)
         {
-            GameObject bullet = Instantiate(bulletPrefabToUse, firePoint.position, Quaternion.identity, null);
+            Instantiate(bulletPrefabToUse, firePoint.position, Quaternion.identity, null);
         }
         else
         {
