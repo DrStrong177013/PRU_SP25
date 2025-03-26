@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
 
     public void RoundsMenu()
     {
+        Time.timeScale = 1;
         submenu.gameObject.SetActive(true);
     }
 
