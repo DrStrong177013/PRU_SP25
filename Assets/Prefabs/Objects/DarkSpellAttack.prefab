@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 819080360879703648, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_Name
-      value: Block Variant
+      value: DarkSpellAttack
       objectReference: {fileID: 0}
     - target: {fileID: 2038503100095687403, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_Size.x
@@ -23,7 +23,7 @@ PrefabInstance:
     - target: {fileID: 2038503100095687403, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 4269934200951769647, guid: 4c417d7c51e114e4aab005051b3a1489, type: 3}
+      objectReference: {fileID: -9025030736658373885, guid: 57c41c9c67ef07d4196836a38c83db5e, type: 3}
     - target: {fileID: 2038503100095687403, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_SortingLayer
       value: 11
@@ -78,19 +78,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7114445511993648892, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_Size.x
-      value: 1.2484461
+      value: 1.6445493
       objectReference: {fileID: 0}
     - target: {fileID: 7114445511993648892, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_Size.y
-      value: 1.2237309
+      value: 1.1558305
       objectReference: {fileID: 0}
     - target: {fileID: 7114445511993648892, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_Offset.x
-      value: 0.004835134
+      value: -0.023456993
       objectReference: {fileID: 0}
     - target: {fileID: 7114445511993648892, guid: 302525c79d4affa4a9067d8741e0e12b, type: 3}
       propertyPath: m_Offset.y
-      value: 0.03955138
+      value: 0.005599502
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
